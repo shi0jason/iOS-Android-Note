@@ -1,0 +1,12 @@
+假如你有安裝 Android SDK
+裡頭就有包含 adb
+
+adb shell
+run-as package-id 
+可以存取測試用版本 App 資料
+
+將檔案放上載具：
+adb push "本機路徑" "裝置路徑"
+
+從載具下載檔案：
+adb pull "裝置路徑" "本機路徑"
