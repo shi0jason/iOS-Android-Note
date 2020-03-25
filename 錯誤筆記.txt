@@ -1,5 +1,18 @@
+iOS 
+
 Error: Multiple commands produce 修正方法
 ========================================================================
 1.File / WorkSpace Setting 將編譯器改為舊版的 Legacy Bulid System  
 2.將多餘的plist 刪除掉
+========================================================================
+
+
+
+Android
+
+Http 不支援解法
+net::Err_cleartext_not_permitted
+========================================================================
+android:usesCleartextTraffic="true"
+android:networkSecurityConfig="@xml/network_security_config"
 ========================================================================
