@@ -1,0 +1,51 @@
+關於上架的一些知識
+首先先有一個付費的 Apple Developer Account
+
+Certificate
+========================================================================
+Keychain Access (鑰匙圈存取) > 憑證輔助程式 > 從憑證授權要求憑證 
+> 匯出 Certificate Signing Request (CSR) 
+
+Certificates, Identifiers & Profiles > Create a New Certificate
+> 把前面的 CSR 上傳到 Developer site >  
+Certification Authority 下載後安裝並好好保管
+========================================================================
+
+p12 可以作為開發共用憑證
+========================================================================
+Keychain Access (鑰匙圈存取) > 我的憑證 > 找到符合你帳號的憑證
+後方()中的序號為 Team ID 可以用於辨識
+Team ID 可在 developer apple site > Membership 中可以找到
+========================================================================
+
+Provisioning Profiles
+========================================================================
+Profiles > Register a New Provisioning Profile > 選擇輸出類型開發或發佈用
+> App ID 選擇 (需要到 http://itunesconnect.apple.com 上登記)
+========================================================================
+
+Identifiers
+========================================================================
+App ID > Capabilities(選擇你需要的其他服務) > Register
+wildcard app id
+* 可用於所有 App
+com.* 可用於所有 App (com.apple.ex1, com.apple.ex2)
+========================================================================
+
+Devices 註冊
+========================================================================
+iOS 平台 iOS tvOS watchOS
+輸入Device Name / Device UDID
+Device UDID 可以由 Xcode > Device and Simulators 中取得
+========================================================================
+
+App 上架
+========================================================================
+點擊左上角 + 號
+填入姓名/版本/語言/SKU/Bundel_ID
+然後上傳 ipa 到 http://itunesconnect.apple.com
+上傳方式：
+1.Xcode > Organizer 直接產出 ipa 上傳
+2.產出 ipa 檔案到本地端經由 Application Loader 輸入帳號後上傳
+========================================================================
+
