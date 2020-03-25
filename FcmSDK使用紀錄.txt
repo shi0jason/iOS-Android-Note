@@ -1,0 +1,96 @@
+Site Part 
+https://console.firebase.google.com
+ 
+Project Settings
+
+一般設定
+========================================================================
+bundle id / package id
+App Store ID : https://itunesconnect.apple.com 點選可以看到該 apple id
+Team ID : developer apple site > Membership 中可以找到
+========================================================================
+
+雲端通訊
+========================================================================
+伺服器金鑰 可作為推播發送用的鑰匙
+========================================================================
+
+
+
+iOS Part
+
+pod file 
+========================================================================
+pod 'Firebase', :inhibit_warnings => true
+pod 'Firebase/Core' , :inhibit_warnings => true
+pod 'Firebase/Analytics', :inhibit_warnings => true
+pod 'Firebase/Messaging', :inhibit_warnings => true
+========================================================================
+
+
+設定 URL Types > URL Schemes > Bundle ID / REVERSED_CLIENT_ID
+Download GoogleService-Info.plist 放在專案中
+
+
+// 註冊 FCMToken 的一些程式碼
+#import <Firebase.h>
+
+didFinishLaunchingWithOptions
+========================================================================
+[FIRMessaging messaging].delegate = self;
+[FIRApp configure];
+[[FIRMessaging messaging] subscribeToTopic:@"訂閱內容"];
+========================================================================
+
+didRegisterForRemoteNotificationsWithDeviceToken
+========================================================================
+#if DEBUG
+    [[FIRMessaging messaging] setAPNSToken:deviceToken
+                                      type:FIRMessagingAPNSTokenTypeSandbox];
+#else
+    [[FIRMessaging messaging] setAPNSToken:deviceToken
+                                      type:FIRMessagingAPNSTokenTypeProd];
+#endif
+
+[[FIRInstanceID instanceID] instanceIDWithHandler:^(FIRInstanceIDResult * _Nullable result, NSError * _Nullable error) {
+    NSLog(@"FCM Token %@", result.token);
+}];
+========================================================================
+
+#pragma mark - FIRMessagingDelegate
+- (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(nonnull NSString *)fcmToken{
+    NSLog(@"Fcm token %@",fcmToken);
+}
+
+=======================================================================================================================
+
+Android Part
+
+build.gradle 
+========================================================================
+dependencies {
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-analytics:16.0.0'
+}
+apply plugin: 'com.google.gms.google-services'
+========================================================================
+
+Register in Activity
+========================================================================
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+FirebaseMessaging.getInstance().subscribeToTopic("npanews");
+FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(NpaCallActivity.this, new OnSuccessListener<InstanceIdResult>() {
+    @Override
+    public void onSuccess(InstanceIdResult instanceIdResult) {
+        String token = instanceIdResult.getToken();
+        if (token != null) {
+            SharedPreferences sharedPrefs = getSharedPreferences("report", 0);
+            SharedPreferences.Editor aEdit = sharedPrefs.edit();
+            aEdit.putString("fcm_token", token);
+            aEdit.commit();
+        }
+    }
+});
