@@ -1,0 +1,27 @@
+實作刷機過程
+EX : HTC-M9
+
+Un Lock
+過程中需要保證 70% 電量或充電
+需要兩個工具 adb & 先下載 twrp
+開啟開發者模式
+
+adb reboot bootloader > Select Root to download mode > fastboot mode 
+ 
+
+oem 解鎖
+fastboot oem unlock
+
+https://www.htcdev.com (有教學步驟)> Unlock Bootloader > Select Device type > Begin Unlock Bootloader
+
+> fastboot oem get_identifier_token (一大段token) 複製
+到 My Device idenifer token submit > Mail 中取得 Unlock_code.bin 並移到 SDK路徑 底下
+
+開始重刷
+fastboot flash unlocktoken SDK路徑/sdk/platform-tools/Unlock_code.bin
+
+fastboot flash recovery twrp-3.2.3-0-hima.img
+
+Re Lock 
+
+1.fastboot oem lock
