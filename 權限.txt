@@ -1,0 +1,25 @@
+1.相機權限
+Privacy - Camera Usage Description 
+
+2.麥克風權限
+Privacy - Microphone Usage Description
+
+3.照片存取權限
+Privacy - Photo Library Additions Usage Description
+
+4.相片存取權限
+Privacy - Photo Library Usage Description
+
+4.定位服務權限
+Privacy - Location Always and When In Use Usage Description
+& Privacy - Location Always Usage Description
+
+5.開啟http連線機制
+App Transport Security Settings > "Allow Arbitrary Loads" : "YES"
+
+6.可判斷否安裝該App並且可跳轉
+LSApplicationQueriesSchemes
+EX: openURL
+
+7.背景執行
+Required background modes
