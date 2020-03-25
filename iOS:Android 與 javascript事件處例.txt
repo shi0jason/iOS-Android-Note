@@ -1,0 +1,51 @@
+Objective-C send event to javascript 
+================================================================================
+Objective-C code:
+Webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"myFunction()"]];
+
+javascript code:
+function myFunction()
+================================================================================
+
+javascript send event to Objective-C
+================================================================================
+javascript code:
+function myFunction(){
+        window.location = "js-call";
+}
+
+Objective-C code:
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request 
+                  navigationType:(UIWebViewNavigationType)navigationType{
+    if ([[[request URL] absoluteString] contains:@"js-call"]) {
+        NSLog(@"Get a Message");
+        return NO;
+    }
+    return YES;
+}
+================================================================================
+
+Android send event to javascript  
+================================================================================
+Android code:
+WebView.loadUrl("myFunction()”)
+
+javascript code:
+function myFunction()
+================================================================================
+
+javascript send event to Android  
+================================================================================
+javascript code:
+function f() { window.location = 'js-call://'; }
+
+Android code:
+webview.setWebViewClient(new WebViewClient() {
+ public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (url.startsWith("js-call://")) {
+                doAction();
+            }
+            return true;
+        }
+}
+================================================================================
